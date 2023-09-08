@@ -8,6 +8,4 @@
 
 #### Además se dedico tiempo al Diseño UX/UI, de manera que las empresas beneficiadas tuviesen la mejor versión de la herramienta su disposcición.
 
-##### Contacto:
-##### Andrea Peralta    a329516@uach.mx
-##### Andrea Melendez   a322974@uach.mx
+##### Contacto: \n Andrea Peralta    a329516@uach.mx \n Andrea Melendez   a322974@uach.mx
