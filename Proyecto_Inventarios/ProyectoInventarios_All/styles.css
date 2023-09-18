@@ -25,4 +25,20 @@ th, td {
     text-align: left;
 }
 
+.tabs {
+    display: flex;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+}
+
+.contenido-tab {
+    margin-top: 20px;
+}
+
 

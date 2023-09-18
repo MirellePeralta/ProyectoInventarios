@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Gestor de Inventarios</h1>
+    <div class="tabs">
+        <div class="tab" onclick="mostrarContenido('inventario')">Inventario</div>
+        <div class="tab" onclick="mostrarContenido('sucursales')">Sucursales</div>
+    </div>
+
+    <div id="inventarioTab" class="contenido-tab">
+        <h1>Gestor de Inventarios</h1>
     <form id="formulario">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" required><br>
@@ -51,7 +57,19 @@
         <button type="button" onclick="restarStock()">Restar Stock</button>
     </form>
 <!-- ... (código anterior) ... -->
+    </div>
 
+    <div id="sucursalesTab" class="contenido-tab" style="display:none;">
+        <h1>Sucursales</h1>
+        <form id="nuevaSucursalForm">
+            <label for="nombreSucursal">Nombre de Sucursal:</label>
+            <input type="text" id="nombreSucursal" required>
+            <button type="button" onclick="crearTablaSucursal()">Crear Tabla</button>
+        </form>
+        <div id="sucursalesContenido"></div>
+    </div>
+    
+           <!-- Contenido de la pestaña "Sucursales" -->
 
 <script src="script.js"></script>
 </body>
