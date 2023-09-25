@@ -1,9 +1,48 @@
+function validarFormulario(event) {
+    event.preventDefault(); // Prevenir el envío del formulario
+
+    var usuario = document.getElementById("usuario").value;
+    var contrasena = document.getElementById("contrasena").value;
+
+    if (usuario === "usuario" && contrasena === "contrasena") {
+        // Redirigir a la segunda ventana
+        window.location.href = "bienvenido.html";
+    } else {
+        alert("Usuario o contraseña incorrectos.");
+    }
+}
+
+let codigoActual = 1;
+let letra1 = 'A';
+let letra2 = 'A';
+
+function generarCodigo() {
+    const codigoNumeros = String(codigoActual).padStart(3, '0');
+    const codigo = letra1 + letra2 + codigoNumeros;
+
+    if (codigoActual < 999) {
+        codigoActual++;
+    } else {
+        codigoActual = 1;
+        letra2 = String.fromCharCode(letra2.charCodeAt(0) + 1);
+        if (letra2 > 'Z') {
+            letra2 = 'A';
+            letra1 = String.fromCharCode(letra1.charCodeAt(0) + 1);
+            if (letra1 > 'Z') {
+                letra1 = 'A'; // Reiniciamos a 'A' si hemos llegado a 'Z'
+            }
+        }
+    }
+
+    return codigo;
+}
+
 function agregarProducto() {
     const nombre = document.getElementById('nombre').value;
     const descripcion = document.getElementById('descripcion').value;
     const precio = document.getElementById('precio').value;
     const stock = document.getElementById('stock').value;
-    const codigo = document.getElementById('codigo').value;
+    const codigo = generarCodigo();
 
     const inventario = document.getElementById('inventario');
 
@@ -134,4 +173,3 @@ function distribuirStock(sucursalNombre) {
         }
     }
 }
-

@@ -2,6 +2,12 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
 }
+/* styles.css */
+
+.oculto {
+    display: none;
+    display: block;
+}
 
 .formulario, .gestion-stock, .tabla-inventario {
     margin: 20px;
