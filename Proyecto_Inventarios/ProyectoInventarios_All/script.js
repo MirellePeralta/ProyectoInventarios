@@ -12,6 +12,19 @@ function validarFormulario(event) {
     }
 }
 
+function irAlmacen() {
+    window.location.href = "almacen.html";
+}
+
+function irSucursales() {
+    window.location.href = "sucursales.html";
+}
+
+function CerrarSesion() {
+    window.location.href = "index.html";
+}
+
+
 let codigoActual = 1;
 let letra1 = 'A';
 let letra2 = 'A';
@@ -40,6 +53,7 @@ function generarCodigo() {
 function agregarProducto() {
     const nombre = document.getElementById('nombre').value;
     const descripcion = document.getElementById('descripcion').value;
+    const seccion = document.getElementById('seccion').value;
     const precio = document.getElementById('precio').value;
     const stock = document.getElementById('stock').value;
     const codigo = generarCodigo();
@@ -50,6 +64,7 @@ function agregarProducto() {
     newRow.innerHTML = `
         <td>${nombre}</td>
         <td>${descripcion}</td>
+        <td>${seccion}</td>
         <td>${precio}</td>
         <td>${stock}</td>
         <td>${codigo}</td>
@@ -60,17 +75,35 @@ function agregarProducto() {
     `;
 
     inventario.appendChild(newRow);
+
+    // Guardar en localStorage
+    const producto = {
+        nombre: nombre,
+        descripcion: descripcion,
+        seccion: seccion,
+        precio: precio,
+        stock: stock,
+        codigo: codigo
+    };
+
+    // Verificar si ya hay productos guardados
+    let productosGuardados = JSON.parse(localStorage.getItem('productos')) || [];
+    productosGuardados.push(producto);
+
+    // Guardar la lista actualizada en localStorage
+    localStorage.setItem('productos', JSON.stringify(productosGuardados));
 }
+
 
 function sumarStockProducto(button) {
     const row = button.parentElement.parentElement;
-    const stockCell = row.querySelector('td:nth-child(4)');
+    const stockCell = row.querySelector('td:nth-child(5)');
     stockCell.textContent = Number(stockCell.textContent) + 1;
 }
 
 function restarStockProducto(button) {
     const row = button.parentElement.parentElement;
-    const stockCell = row.querySelector('td:nth-child(4)');
+    const stockCell = row.querySelector('td:nth-child(5)');
     if (Number(stockCell.textContent) > 0) {
         stockCell.textContent = Number(stockCell.textContent) - 1;
     }
@@ -82,9 +115,9 @@ function sumarStock() {
 
     const inventario = document.getElementById('inventario').getElementsByTagName('tr');
     for (let i = 1; i < inventario.length; i++) {
-        const codigoProducto = inventario[i].getElementsByTagName('td')[4].textContent;
+        const codigoProducto = inventario[i].getElementsByTagName('td')[5].textContent;
         if (codigo === codigoProducto) {
-            const stockCell = inventario[i].getElementsByTagName('td')[3];
+            const stockCell = inventario[i].getElementsByTagName('td')[4];
             stockCell.textContent = Number(stockCell.textContent) + cantidad;
             break;
         }
@@ -97,9 +130,9 @@ function restarStock() {
 
     const inventario = document.getElementById('inventario').getElementsByTagName('tr');
     for (let i = 1; i < inventario.length; i++) {
-        const codigoProducto = inventario[i].getElementsByTagName('td')[4].textContent;
+        const codigoProducto = inventario[i].getElementsByTagName('td')[5].textContent;
         if (codigo === codigoProducto) {
-            const stockCell = inventario[i].getElementsByTagName('td')[3];
+            const stockCell = inventario[i].getElementsByTagName('td')[4];
             if (Number(stockCell.textContent) >= cantidad) {
                 stockCell.textContent = Number(stockCell.textContent) - cantidad;
             }
@@ -112,6 +145,7 @@ function mostrarContenido(tab) {
     tabs.forEach(t => t.style.display = 'none');
     document.getElementById(tab + 'Tab').style.display = 'block';
 }
+
 let sucursales = [];
 
 function crearTablaSucursal() {
@@ -127,6 +161,7 @@ function crearTablaSucursal() {
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
+                <th>Sección</th>
                 <th>Precio</th>
                 <th>Stock</th>
                 <th>Código</th>
@@ -147,9 +182,9 @@ function distribuirStock(sucursalNombre) {
 
     const inventario = document.getElementById('inventario').getElementsByTagName('tr');
     for (let i = 1; i < inventario.length; i++) {
-        const codigoProducto = inventario[i].getElementsByTagName('td')[4].textContent;
+        const codigoProducto = inventario[i].getElementsByTagName('td')[5].textContent;
         if (codigo === codigoProducto) {
-            const stockCell = inventario[i].getElementsByTagName('td')[3];
+            const stockCell = inventario[i].getElementsByTagName('td')[4];
             const cantidadDistribuida = Math.min(cantidad, Number(stockCell.textContent));
             stockCell.textContent = Number(stockCell.textContent) - cantidadDistribuida;
 
@@ -158,13 +193,15 @@ function distribuirStock(sucursalNombre) {
                 <td>${inventario[i].getElementsByTagName('td')[0].textContent}</td>
                 <td>${inventario[i].getElementsByTagName('td')[1].textContent}</td>
                 <td>${inventario[i].getElementsByTagName('td')[2].textContent}</td>
+                <td>${inventario[i].getElementsByTagName('td')[3].textContent}</td>
                 <td>${cantidadDistribuida}</td>
                 <td>${codigo}</td>
             `;
             sucursal.inventario.push({
                 nombre: inventario[i].getElementsByTagName('td')[0].textContent,
                 descripcion: inventario[i].getElementsByTagName('td')[1].textContent,
-                precio: inventario[i].getElementsByTagName('td')[2].textContent,
+                seccion: inventario[i].getElementsByTagName('td')[2].textContent,
+                precio: inventario[i].getElementsByTagName('td')[3].textContent,
                 stock: cantidadDistribuida,
                 codigo: codigo
             });
