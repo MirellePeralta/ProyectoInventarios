@@ -8,16 +8,61 @@
 </head>
 <body>
 <!-- ... (código anterior) ... -->
+    <div class="tabs">
+        <div class="tab" onclick="mostrarContenido('InventarioS')">Inventario</div> 
+        <div class="tab" onclick="mostrarContenido('AñadirS')">Añadir Sucursal</div>       
+        <div class="tab" onclick="mostrarContenido('Sucursales')">Ver Sucursales</div>
+        <div class="tab" onclick="mostrarContenido('EditarS')">Editar Sucursal</div>       
+    </div>
 
-    <div id="sucursalesTab" class="contenido-tab">
+    <div id="InventarioSTab" class="contenido-tab">
+        <h2>Inventario</h2>
+    <form id="formulario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" required><br>
+
+        <label for="seccion">Sección:</label>
+        <input type="text" id="seccion" required><br>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" required><br>
+
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" required><br>
+
+        <button type="button" onclick="agregarProducto()">Agregar Producto</button>
+    </form>
+
+        <h2>Inventario</h2>
+    <table id="inventario">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Sección</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Código</th>
+            <th>Acciones</th>
+        </tr>
+    </table>
+    </div>
+
+    <div id="AñadirSTab" class="contenido-tab" style="display:none;">
         <h1>Sucursales</h1>
         <form id="nuevaSucursalForm">
             <label for="nombreSucursal">Nombre de Sucursal:</label>
             <input type="text" id="nombreSucursal" required>
             <button type="button" onclick="crearTablaSucursal()">Crear Tabla</button>
         </form>
-        <div id="sucursalesContenido"></div>
+    </div>
 
+    <div id="SucursalesTab" class="contenido-tab" style="display:none;">
+        <h1>Sucursales</h1>
+        <div id="sucursalesContenido"></div>
+    </div>
     
            <!-- Contenido de la pestaña "Sucursales" -->
 

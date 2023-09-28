@@ -8,11 +8,14 @@
 </head>
 <body>
     <div class="tabs">
-        <div class="tab" onclick="mostrarContenido('inventario')">Inventario</div>
-        <div class="tab" onclick="mostrarContenido('sucursales')">Sucursales</div>
+        <div class="tab" onclick="mostrarContenido('Inventario')">Almacen</div>        
+        <div class="tab" onclick="mostrarContenido('Nuevo')">Nuevo Producto</div>
+        <div class="tab" onclick="mostrarContenido('Editar')">Editar Producto</div>
+        <div class="tab" onclick="mostrarContenido('Buscar')">Buscar Producto</div>
+        <div class="tab" onclick="mostrarContenido('Modificar')">Modificar Stock</div>
     </div>
 
-    <div id="inventarioTab" class="contenido-tab">
+    <div id="NuevoTab" class="contenido-tab" style="display:none;">
         <h1>Gestor de Inventarios</h1>
     <form id="formulario">
         <label for="nombre">Nombre:</label>
@@ -32,8 +35,10 @@
     
         <button type="button" onclick="agregarProducto()">Agregar Producto</button>
     </form>
+    </div>
 
-    <h2>Inventario</h2>
+    <div id="InventarioTab" class="contenido-tab">
+        <h2>Inventario</h2>
     <table id="inventario">
         <tr>
             <th>Nombre</th>
@@ -45,8 +50,60 @@
             <th>Acciones</th>
         </tr>
     </table>
+    </div>
 
-    <h2>Modificar Stock</h2>
+    <div id="EditarTab" class="contenido-tab" style="display:none;">
+        <h2>Editar Producto</h2>    <!-- Botón para buscar producto por código -->
+        <label for="codigoProducto">Código del Producto:</label>
+        <input type="text" id="codigoProducto">
+        <button onclick="buscarProducto()">Siguiente</button>
+        
+        <!-- Interfaz de modificación (inicialmente oculta) -->
+        <div id="modificarProducto" style="display:none;">
+            <h2>Modificar Producto</h2>
+            <label for="nombreMod">Nombre:</label>
+            <input type="text" id="nombreMod"><br>
+            
+            <label for="descripcionMod">Descripción:</label>
+            <input type="text" id="descripcionMod"><br>
+            
+            <label for="seccionMod">Sección:</label>
+            <input type="text" id="seccionMod"><br>
+            
+            <label for="precioMod">Precio:</label>
+            <input type="text" id="precioMod"><br>
+            
+            <label for="stockMod">Stock:</label>
+            <input type="text" id="stockMod"><br>
+            
+            <!-- Botones de Aceptar y Cancelar -->
+            <button onclick="confirmarModificacion()">Aceptar</button>
+            <button onclick="cancelarModificacion()">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="BuscarTab" class="contenido-tab" style="display:none;">
+        <h1>Buscar</h1>
+    <!-- Elementos de búsqueda -->
+        <label for="busqueda">Buscar por:</label>
+        <select id="criterio">
+            <option value="nombre">Nombre</option>
+            <option value="descripcion">Descripción</option>
+            <option value="seccion">Sección</option>
+            <option value="precio">Precio</option>
+            <option value="stock">Stock</option>
+            <option value="codigo">Código</option>
+        </select>
+        <input type="text" id="busqueda">
+        <button onclick="buscarProductos()">Buscar</button>
+
+        <!-- Resultados de búsqueda -->
+        <h2>Resultados de Búsqueda</h2>
+        <div id="resultados"></div>
+    </div>
+
+    <div id="ModificarTab" class="contenido-tab" style="display:none;">
+        <h2>Modificar Stock</h2>
     <form id="modificarStock">
         <label for="codigoStock">Código:</label>
         <input type="text" id="codigoStock" required><br>
