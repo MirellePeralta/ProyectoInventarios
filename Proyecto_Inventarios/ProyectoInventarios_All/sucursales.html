@@ -12,7 +12,8 @@
         <div class="tab" onclick="mostrarContenido('InventarioS')">Inventario</div> 
         <div class="tab" onclick="mostrarContenido('AñadirS')">Añadir Sucursal</div>       
         <div class="tab" onclick="mostrarContenido('Sucursales')">Ver Sucursales</div>
-        <div class="tab" onclick="mostrarContenido('EditarS')">Editar Sucursal</div>       
+        <div class="tab" onclick="mostrarContenido('EditarS')">Editar Sucursal</div>
+        <button onclick="VolverAtras()">Volver</button>       
     </div>
 
     <div id="InventarioSTab" class="contenido-tab">
@@ -65,6 +66,17 @@
     </div>
     
            <!-- Contenido de la pestaña "Sucursales" -->
+    <div id="EditarSTab" class="contenido-tab" style="display:none;">
+        <h1>Editar Sucursal</h1>
+        <label for="selectSucursales">Seleccionar Sucursal:</label>
+        <select id="selectSucursales"></select><br>
+        <button type="button" onclick="distribuirStockSucursal()">Distribuir Stock</button>
+        <button type="button" onclick="eliminarProductoDeSucursal()">Eliminar Stock</button>
+        <button type="button" onclick="agregarPiezasASucursal()">Sumar Stock</button>
+        <button type="button" onclick="restarPiezasDeSucursal()">Restar Stock</button>
+    </div>
+        
+        
 
 <script src="script.js"></script>
 </body>

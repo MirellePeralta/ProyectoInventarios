@@ -24,6 +24,10 @@ function CerrarSesion() {
     window.location.href = "index.html";
 }
 
+function VolverAtras() {
+    window.location.href = "bienvenido.html";
+}
+
 
 let codigoActual = 1;
 let letra1 = 'A';
@@ -131,6 +135,7 @@ function restarStock() {
         // Mostrar alerta
         alert("El producto ha sido correctamente modificado.");
 }
+
 function mostrarContenido(tab) {
     const tabs = document.querySelectorAll('.contenido-tab');
     tabs.forEach(t => t.style.display = 'none');
@@ -162,7 +167,7 @@ function crearTablaSucursal() {
     `;
     sucursal.tabla = nuevaTabla.querySelector('table');
     sucursalesContenido.appendChild(nuevaTabla);
-    alert("Sucursal añadida con éxito.");
+        alert("Sucursal añadida con éxito.");
 }
 
 function distribuirStock(sucursalNombre) {
@@ -336,7 +341,225 @@ function getIndiceCriterio(criterio) {
     }
 }
 
-// ...
+function mostrarContenido(tab) {
+    const tabs = document.querySelectorAll('.contenido-tab');
+    tabs.forEach(t => t.style.display = 'none');
+    document.getElementById(tab + 'Tab').style.display = 'block';
 
+    if (tab === 'EditarS') {
+        const selectSucursales = document.getElementById('selectSucursales');
+        selectSucursales.innerHTML = '';
 
+        sucursales.forEach(sucursal => {
+            const option = document.createElement('option');
+            option.value = sucursal.nombre;
+            option.textContent = sucursal.nombre;
+            selectSucursales.appendChild(option);
+        });
+    }
+}
+
+function distribuirStockSucursal() {
+    const sucursalSeleccionada = document.getElementById('selectSucursales').value;
+    const sucursal = sucursales.find(s => s.nombre === sucursalSeleccionada);
+
+    if (!sucursal) {
+        alert("Por favor selecciona una sucursal válida.");
+        return;
+    }
+
+    const codigo = prompt(`Ingrese el código del producto para la sucursal ${sucursalSeleccionada}`);
+    const cantidad = parseInt(prompt(`Ingrese la cantidad de stock a distribuir a la sucursal ${sucursalSeleccionada}`));
+
+    const inventario = document.getElementById('inventario').getElementsByTagName('tr');
+
+    for (let i = 1; i < inventario.length; i++) {
+        const codigoProducto = inventario[i].getElementsByTagName('td')[5].textContent;
+
+        if (codigo === codigoProducto) {
+            const stockCell = inventario[i].getElementsByTagName('td')[4];
+            const cantidadDistribuida = Math.min(cantidad, Number(stockCell.textContent));
+
+            if (cantidadDistribuida > 0) {
+                stockCell.textContent = Number(stockCell.textContent) - cantidadDistribuida;
+
+                const newRow = sucursal.tabla.insertRow();
+                newRow.innerHTML = `
+                    <td>${inventario[i].getElementsByTagName('td')[0].textContent}</td>
+                    <td>${inventario[i].getElementsByTagName('td')[1].textContent}</td>
+                    <td>${inventario[i].getElementsByTagName('td')[2].textContent}</td>
+                    <td>${inventario[i].getElementsByTagName('td')[3].textContent}</td>
+                    <td>${cantidadDistribuida}</td>
+                    <td>${codigo}</td>
+                `;
+
+                sucursal.inventario.push({
+                    nombre: inventario[i].getElementsByTagName('td')[0].textContent,
+                    descripcion: inventario[i].getElementsByTagName('td')[1].textContent,
+                    seccion: inventario[i].getElementsByTagName('td')[2].textContent,
+                    precio: inventario[i].getElementsByTagName('td')[3].textContent,
+                    stock: cantidadDistribuida,
+                    codigo: codigo
+                });
+
+                alert(`Stock distribuido con éxito a la sucursal ${sucursalSeleccionada}`);
+            } else {
+                alert("La cantidad de stock a distribuir debe ser mayor que cero.");
+            }
+
+            return; // Salir después de realizar la distribución
+        }
+    }
+
+    alert(`No se encontró ningún producto con el código proporcionado en la sucursal ${sucursalSeleccionada}`);
+}
+
+function eliminarProductoDeSucursal() {
+    const sucursalSeleccionada = document.getElementById('selectSucursales').value;
+    const sucursal = sucursales.find(s => s.nombre === sucursalSeleccionada);
+
+    if (!sucursal) {
+        alert("Por favor selecciona una sucursal válida.");
+        return;
+    }
+
+    const codigo = prompt(`Ingrese el código del producto a eliminar de la sucursal ${sucursalSeleccionada}`);
+
+    const indiceProducto = sucursal.inventario.findIndex(p => p.codigo === codigo);
+
+    if (indiceProducto !== -1) {
+        const productoEliminado = sucursal.inventario.splice(indiceProducto, 1)[0];
+
+        // Agregar el producto de vuelta al inventario
+        const inventario = document.getElementById('inventario').getElementsByTagName('tr');
+        for (let i = 1; i < inventario.length; i++) {
+            const codigoProducto = inventario[i].getElementsByTagName('td')[5].textContent;
+            if (codigo === codigoProducto) {
+                const stockCell = inventario[i].getElementsByTagName('td')[4];
+                stockCell.textContent = Number(stockCell.textContent) + productoEliminado.stock;
+                break;
+            }
+        }
+
+        // Eliminar fila correspondiente en la tabla de la sucursal
+        const filasTabla = sucursal.tabla.getElementsByTagName('tr');
+        for (let i = 1; i < filasTabla.length; i++) {
+            const codigoProducto = filasTabla[i].getElementsByTagName('td')[5].textContent;
+
+            if (codigo === codigoProducto) {
+                filasTabla[i].remove();
+
+                alert(`Producto eliminado con éxito de la sucursal ${sucursalSeleccionada}`);
+                return;
+            }
+        }
+    } else {
+        alert(`No se encontró ningún producto con el código proporcionado en la sucursal ${sucursalSeleccionada}`);
+    }
+}
+
+function agregarPiezasASucursal() {
+    const indiceSucursal = document.getElementById('selectSucursales').selectedIndex;
+    const sucursal = sucursales[indiceSucursal];
+
+    if (sucursal) {
+        const codigo = prompt(`Ingrese el código del producto que desea agregar a la sucursal ${sucursal.nombre}`);
+        const cantidad = parseInt(prompt(`Ingrese la cantidad de piezas que desea agregar a la sucursal ${sucursal.nombre}`));
+
+        if (cantidad > 0) {
+            const inventario = document.getElementById('inventario').getElementsByTagName('tr');
+            for (let i = 1; i < inventario.length; i++) {
+                const codigoProducto = inventario[i].getElementsByTagName('td')[5].textContent;
+                if (codigo === codigoProducto) {
+                    const stockCell = inventario[i].getElementsByTagName('td')[4];
+                    if (Number(stockCell.textContent) >= cantidad) {
+                        stockCell.textContent = Number(stockCell.textContent) - cantidad;
+
+                        // Buscar si el producto ya existe en la sucursal
+                        const indiceProducto = sucursal.inventario.findIndex(p => p.codigo === codigo);
+
+                        if (indiceProducto !== -1) {
+                            // Si existe, solo actualizar el stock
+                            sucursal.inventario[indiceProducto].stock += cantidad;
+                            const filaSucursal = sucursal.tabla.rows[indiceProducto + 1];
+                            filaSucursal.cells[4].textContent = sucursal.inventario[indiceProducto].stock;
+                        } else {
+                            // Si no existe, agregar una nueva fila
+                            const filaSucursal = sucursal.tabla.insertRow();
+                            filaSucursal.innerHTML = `
+                                <td>${inventario[i].getElementsByTagName('td')[0].textContent}</td>
+                                <td>${inventario[i].getElementsByTagName('td')[1].textContent}</td>
+                                <td>${inventario[i].getElementsByTagName('td')[2].textContent}</td>
+                                <td>${inventario[i].getElementsByTagName('td')[3].textContent}</td>
+                                <td>${cantidad}</td>
+                                <td>${codigo}</td>
+                            `;
+                            sucursal.inventario.push({
+                                nombre: inventario[i].getElementsByTagName('td')[0].textContent,
+                                descripcion: inventario[i].getElementsByTagName('td')[1].textContent,
+                                seccion: inventario[i].getElementsByTagName('td')[2].textContent,
+                                precio: inventario[i].getElementsByTagName('td')[3].textContent,
+                                stock: cantidad,
+                                codigo: codigo
+                            });
+                        }
+
+                        // Mostrar alerta de éxito
+                        alert(`Se agregaron ${cantidad} piezas a la sucursal ${sucursal.nombre}.`);
+                        return;
+                    } else {
+                        alert(`No hay suficiente stock en el inventario principal para agregar a la sucursal ${sucursal.nombre}.`);
+                        return;
+                    }
+                }
+            }
+
+            alert(`No se encontró ningún producto con el código proporcionado.`);
+        }
+    } else {
+        alert("Por favor selecciona una sucursal antes de agregar piezas.");
+    }
+}
+
+function restarPiezasDeSucursal() {
+    const indiceSucursal = document.getElementById('selectSucursales').selectedIndex;
+    const sucursal = sucursales[indiceSucursal];
+
+    if (sucursal) {
+        const codigo = prompt(`Ingrese el código del producto del cual desea restar piezas en la sucursal ${sucursal.nombre}`);
+        const cantidad = parseInt(prompt(`Ingrese la cantidad de piezas que desea restar en la sucursal ${sucursal.nombre}`));
+
+        if (cantidad > 0) {
+            const inventario = sucursal.tabla.getElementsByTagName('tr');
+            for (let i = 1; i < inventario.length; i++) {
+                const codigoProducto = inventario[i].getElementsByTagName('td')[5].textContent;
+                if (codigo === codigoProducto) {
+                    const stockCell = inventario[i].getElementsByTagName('td')[4];
+                    if (Number(stockCell.textContent) >= cantidad) {
+                        stockCell.textContent = Number(stockCell.textContent) - cantidad;
+
+                        // Actualizar el stock en la sucursal
+                        const indiceProducto = sucursal.inventario.findIndex(p => p.codigo === codigo);
+                        if (indiceProducto !== -1) {
+                            sucursal.inventario[indiceProducto].stock -= cantidad;
+                            const filaSucursal = sucursal.tabla.rows[indiceProducto + 1];
+                            filaSucursal.cells[4].textContent = sucursal.inventario[indiceProducto].stock;
+
+                            // Mostrar alerta de éxito
+                            alert(`Se restaron ${cantidad} piezas de la sucursal ${sucursal.nombre}.`);
+                            return;
+                        }
+                    } else {
+                        alert(`No hay suficiente stock en la sucursal ${sucursal.nombre} para restar.`);
+                        return;
+                    }
+                }
+            }
+
+            alert(`No se encontró ningún producto con el código proporcionado en la sucursal ${sucursal.nombre}.`);
+        }
+    } else {
+        alert("Por favor selecciona una sucursal antes de restar piezas.");
+    }
+}
 
