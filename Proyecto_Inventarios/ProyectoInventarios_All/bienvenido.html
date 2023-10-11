@@ -4,12 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <style>
+        body{
+            width: 1450px;
+            height: 600px;
+            background-image: url(/img/fondo2.jpg);
+            background-size: 1500px 800px;
+        }
+    </style>
     <h1>Página Principal</h1>
-    <button onclick="irAlmacen()">Ir a Almacén</button>
-    <button onclick="irSucursales()">Ir a Sucursales</button>
-    <button onclick="CerrarSesion()">Cerrar Sesión</button>
+    <style>
+        h1{
+            margin: 150px;
+        }
+    </style>
+
+    <button onclick="irAlmacen()" style="font-size: larger">Ir a Almacén</button>
+    <button onclick="irSucursales()" style="font-size: larger">Ir a Sucursales</button>
+    <button onclick="CerrarSesion()" style="font-size: larger">Cerrar Sesión</button>
     
     <script src="script.js"></script>
 </body>

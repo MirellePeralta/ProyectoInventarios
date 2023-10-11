@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body background="/img/fondo2.jpg">
+
+    <style>
+        body{
+            background-image: url(/img/fondo2.jpg);
+            background-repeat: no-repeat;
+            background-size: 1500px 800px;
+        }
+    </style>
     <div class="login-container">
+        
         <h2>Iniciar Sesión</h2>
         <form onsubmit="validarFormulario(event)">
+            
             <label for="usuario">Usuario:</label>
             <input type="text" id="usuario" name="usuario" required><br>
 
@@ -17,6 +28,7 @@
             <input type="password" id="contrasena" name="contrasena" required><br>
 
             <button type="submit">Ingresar</button>
+            
         </form>
     </div>
 

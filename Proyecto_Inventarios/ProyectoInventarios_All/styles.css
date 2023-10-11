@@ -1,6 +1,33 @@
+button{
+    background-color: rgb(231, 175, 194);
+}
+
+
+#InventarioTab{
+    background-color: white;
+}
+th{
+    background-color: rgba(246, 232, 188, 0.816);
+}
+
+#criterio{
+    background-color: rgba(246, 232, 188, 0.816) ;
+}
+
+#selectSucursales{
+    background-color: rgba(246, 232, 188, 0.816) ;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: cursive;
     text-align: center;
+    font-size: large;
+}
+
+.login-container{
+    width: 1450px;
+    height: 650px;
+    margin-top: 200px;
 }
 /* styles.css */
 
@@ -38,7 +65,7 @@ th, td {
 .tab {
     cursor: pointer;
     padding: 10px 20px;
-    background-color: #f0f0f0;
+    background-color: rgba(230, 160, 194, 0.905);
     margin-right: 5px;
     border: 1px solid #ccc;
 }
@@ -46,5 +73,4 @@ th, td {
 .contenido-tab {
     margin-top: 20px;
 }
-
 
