@@ -33,8 +33,4 @@ Después de un acercamiento a las tres empresas, el programa propuesto deberá:
   - HTML y CSS para interfaces de usuario interactivas.
   - Sheet.Best para conectar y trabajar con hojas de cálculo de Google Sheets.
 
-## Creación de Nombre y Logotipo de la Empresa
-
-Para la elección del nombre, se seleccionó "Wise Stock" ya que sugiere inteligencia y eficiencia en la gestión de inventarios. Este nombre es memorable y fácil de pronunciar, facilitando la difusión y el uso del software en una organización.
-
 ¡Gracias por explorar nuestro proyecto! Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros.
