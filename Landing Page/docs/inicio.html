@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="stylesi.css">
+</head>
+<body background="/img/fondo-papel-tapiz-colorido-borroso-vivo.jpg">
+
+    <style>
+        body{
+            background-image: url(/img/fondo-papel-tapiz-colorido-borroso-vivo.jpg);
+            background-repeat: repeat;
+            background-size: 1600px 1200px;
+        }
+    </style>
+
+    <div class="container">
+
+        <div class="image-section">
+            <img src="/img/portadaimg.png" alt="Imagen de Bienvenida">
+        </div>
+
+        <div class="login-container">
+            <h1>Iniciar Sesión</h1>
+            <form onsubmit="validarFormulario(event)">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" required><br>
+
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required><br>
+
+                <button type="submit">Ingresar</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="scripti.js"></script>
+</body>
+</html>

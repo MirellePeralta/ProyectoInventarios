@@ -1,0 +1,80 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    font-size: large;
+}
+
+.login-container {
+    width: 350px;
+    height: 300px;
+    margin: 200px auto;
+    background-color: rgba(255, 255, 255, 0.705); /* Fondo blanco semitransparente */
+    border-radius: 10px; /* Esquinas redondeadas */
+    padding: 20px; /* Espaciado interno */
+    text-align: center;
+}
+
+input {
+    background-color:  rgb(200, 238, 254);
+    border: 7px solid rgb(200, 238, 254);
+    border-radius: 10px;
+    margin: 10px;
+    width: 300px; /* Ajusta el ancho según tus preferencias */
+    padding: 8px; /* Ajusta el relleno (padding) según tus preferencias */
+}
+
+button {
+    background-color: rgba(72, 195, 248, 0);
+    border-radius: 10px; /* Redondea el botón */
+    font-size: 15px; /* Aumenta el tamaño del texto */
+    margin: 10px;
+    color: rgba(255, 255, 255, 0); /* Color del texto */
+    font-family: 'Montserrat', sans-serif;
+    border: 10px solid rgba(72, 195, 248, 0);
+}
+
+label {
+    font-size: 15px; /* Cambia el tamaño de la fuente */
+    display: block; /* Hace que la etiqueta aparezca en una nueva línea */
+    margin-bottom: 0px; /* Añade un espacio entre la etiqueta y el campo de entrada */
+    text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
+    padding-left: 10px; /* Añade una sangría de 10 píxeles en el lado izquierdo */
+}
+
+.container {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Esquinas redondeadas */
+    justify-content: center;
+    align-items: center;
+    margin-left: 5cm;
+    margin-right: 5cm;
+    margin-top: 1cm;
+    margin-bottom: 1cm;
+}
+
+.image-section {
+    position: relative;
+    display: inline-block; /* Asegura que el contenedor se ajuste al tamaño de la imagen */
+}
+
+.image-section button {
+    position: absolute;
+    bottom: 70px;
+    right: 45px;
+    width: 150px; /* Ancho del botón */
+    height: 75px; /* Altura del botón */
+}
+
+
+.image-section, .login-section {
+    flex: 1;
+    padding: 20px;
+}
+
+.image-section img {
+    max-width: 100%;
+    height: auto;
+}
